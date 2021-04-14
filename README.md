@@ -143,7 +143,7 @@ assert.heals = (pokemon, fn, message) => {
 
 Some notable prior art helping drive this proposal.
 
-### Node.js Builtin Class: `assert.AssertionError`
+### Node.js Built-in Class: `assert.AssertionError`
 
 - Extends: {errors.Error}
 
@@ -246,7 +246,7 @@ All instances of `AssertionError` would contain the built-in `Error` properties
 
 ## Related
 
-Good amount of implementations in existence today.
+Good amount of implementations in JS existence today.
 
 ### Predicates
 
@@ -261,7 +261,7 @@ Good amount of implementations in existence today.
 
 ### Formatters
 
-- [fn: `jest-circus.formatNodeAssertErrors()`](https://github.com/facebook/jest/blob/HEAD/packages/jest-circus/src/formatNodeAssertErrors.ts#L41)
+- [fn: `formatNodeAssertErrors` in `jest-circus`](https://github.com/facebook/jest/blob/HEAD/packages/jest-circus/src/formatNodeAssertErrors.ts#L41)
 
 ## Q&A
 
