@@ -19,9 +19,10 @@ is to throw an `AssertionError` for any failed assertions.
 
 In particular, the following popular assertion libraries do this:
 
-- chai
-- qunit
-- nodejs core assert module
+- Chai.js
+- Mocha
+- Node.js core `assert` module
+- QUnit
 - [See Related](#related)
 
 Ideally, a standard AssertionError from any assertion library would be used by the error reporters of test frameworks and runtime error loggers to display the difference between what was expected and what the assertion saw for providing rich error reporting such a pretty printed diff.
@@ -38,7 +39,7 @@ There are several existing modules with similar ideas of how the interface for t
 
 ## Proposal
 
-Today, it is very common unit testing frameworks to have assertion methods to
+Today, it is very common for unit testing frameworks to have assertion methods
 like `assertNull` write code like:
 
 ```ts
@@ -90,7 +91,7 @@ try {
 
 Or if we had an `operator` property:
 
-```ts
+```mjs
 assert.species = (pokemon, species, message) => {
   const actual = pokemon.template.species;
   if (actual === species) return;
@@ -119,8 +120,7 @@ assert.fullHP = function (pokemon, message) {
 };
 ```
 
-This is not only for pretty printing error messages! We can use this data for
-making the assertion itself.
+AssertionError is not only for pretty printing error messages.
 
 ```mjs
 assert.heals = (pokemon, fn, message) => {
@@ -241,6 +241,7 @@ All instances of `AssertionError` would contain the built-in `Error` properties
 
 - `AssertionError` has been one of Python's Standard Exception Classes since
   Python 1.5. https://www.python.org/doc/essays/stdexceptions/
+
 - `AssertionError` in Java also accepts a `cause` https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AssertionError.html
 
 ## Related
