@@ -122,7 +122,7 @@ assert.fullHP = function (pokemon, message) {
 This is not only for pretty printing error messages! We can use this data for
 making the assertion itself.
 
-```ts
+```mjs
 assert.heals = (pokemon, fn, message) => {
   const prevHP = pokemon.hp;
   fn();
@@ -139,32 +139,18 @@ assert.heals = (pokemon, fn, message) => {
 
 [Attribution](https://github.com/Fercardo/Inferno/blob/HEAD/test/assert.js#L61)
 
-<br />
-
----
-
-<br />
-
-Can be used by various exception handlers for display purposes (more descriptive
-error messages):
-
-- runtime exception handling
-  - [Node.js 📦 `assert.AssertError`](https://github.com/nodejs/node/blob/HEAD/doc/api/assert.md#class-assertassertionerror)
-- pretty printing errors in test frameworks
-  - [`jest-circus` 📦 `formatNodeAssertErrors()`](https://github.com/facebook/jest/blob/HEAD/packages/jest-circus/src/formatNodeAssertErrors.ts#L23-L28)
-
 ## Inspiration
 
-Some notable prior art heliping drive this proposal.
+Some notable prior art helping drive this proposal.
 
-## Node.js Builtin Class: `assert.AssertionError`
+### Node.js Builtin Class: `assert.AssertionError`
 
 - Extends: {errors.Error}
 
 Indicates the failure of an assertion. All errors thrown by the `assert` module
 will be instances of the `AssertionError` class.
 
-## `new assert.AssertionError(options)`
+### `new assert.AssertionError(options)`
 
 A subclass of `Error` that indicates the failure of an assertion.
 
@@ -175,12 +161,6 @@ A subclass of `Error` that indicates the failure of an assertion.
   - `operator` {string} The `operator` property on the error instance.
   - `stackStartFn` {Function} If provided, the generated stack trace omits
     frames before this function.
-
-<br />
-
----
-
-<br />
 
 ## Ecosystem uses
 
@@ -207,15 +187,7 @@ A subclass of `Error` that indicates the failure of an assertion.
 >
 > &mdash; https://github.com/ampproject/amphtml/blob/main/spec/amp-errors.md#expected-errors
 
-<br />
-
----
-
-<br />
-
-## Implementations
-
-### Options
+## Options
 
 All instances of `AssertionError` would contain the built-in `Error` properties
 (`message` and `name`) and perhaps any of the new properties in common use below.
@@ -262,7 +234,7 @@ All instances of `AssertionError` would contain the built-in `Error` properties
 
 <br />
 
-## Notes
+## Implementations in other languages
 
 - `assert.AssertionError` has been one of Node's core modules since 2011
   https://nodejs.org/dist/latest-v15.x/docs/api/assert.html#assert_class_assert_assertionerror
@@ -270,12 +242,6 @@ All instances of `AssertionError` would contain the built-in `Error` properties
 - `AssertionError` has been one of Python's Standard Exception Classes since
   Python 1.5. https://www.python.org/doc/essays/stdexceptions/
 - `AssertionError` in Java also accepts a `cause` https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AssertionError.html
-
-<br />
-
----
-
-<br />
 
 ## Related
 
@@ -290,6 +256,11 @@ Good amount of implementations in existence today.
 
 - [npm: `assertion-error`](https://www.npmjs.com/package/assertion-error)
 - [npm: `assertion-error-diff`](https://www.npmjs.com/package/assertion-error-diff)
+- [node: `assert.AssertError`](https://github.com/nodejs/node/blob/HEAD/doc/api/assert.md#class-assertassertionerror)
+
+### Formatters
+
+- [fn: `jest-circus.formatNodeAssertErrors()`](https://github.com/facebook/jest/blob/HEAD/packages/jest-circus/src/formatNodeAssertErrors.ts#L41)
 
 ## Q&A
 
