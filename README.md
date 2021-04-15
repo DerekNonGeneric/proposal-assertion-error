@@ -21,6 +21,7 @@ throw an `AssertionError` for any failed assertions.
 In particular, the following popular assertion libraries do this:
 
 - [Chai](https://github.com/chaijs/chai)
+- [Expect](https://jestjs.io/docs/expect)
 - Node.js core `assert` module
 - [See Related](#related)
 
