@@ -22,7 +22,7 @@ In particular, the following popular assertion libraries do this:
 
 - [Chai](https://github.com/chaijs/chai)
 - [Expect](https://jestjs.io/docs/expect)
-- Node.js core `assert` module
+- [Node.js core `assert` module](https://nodejs.org/dist/latest/docs/api/assert.html#assert_assert)
 - [See Related](#related)
 
 Ideally, a standard AssertionError from any assertion library would be used by
@@ -79,6 +79,7 @@ export function assertNull(value) {
 export default assertNull;
 ```
 
+<!--
 Reference implementation for runner (WIP):
 
 ```mjs
@@ -96,6 +97,7 @@ try {
   results.error(e);
 }
 ```
+-->
 
 Or if we had an `operator` property:
 
@@ -205,17 +207,18 @@ below.
 
 ### Support for new properties
 
-|             | `actual` | `expected` | `operator` | `messagePattern` | `generatedMessage` | `diffable` | `showDiff` | `toJson()` | `stack` | `stackStartFn()` | `stackStartFunction()` | `code`                                                                    | `details` |
-| ----------- | -------- | ---------- | ---------- | ---------------- | ------------------ | ---------- | ---------- | ---------- | ------- | ---------------- | ---------------------- | ------------------------------------------------------------------------- | --------- |
-| [Chai.js][] | X        | X          | X          |                  |                    |            | X          | X          |         |                  |
+|             | `actual` | `expected` | `operator` | `messagePattern` | `generatedMessage` | `diffable` | `showDiff` | `toJson()` | `stack` | `stackStartFn()` | `stackStartFunction()` | `code`                                                                    | `details` | `truncate` |
+| ----------- | -------- | ---------- | ---------- | ---------------- | ------------------ | ---------- | ---------- | ---------- | ------- | ---------------- | ---------------------- | ------------------------------------------------------------------------- | --------- | ---------- |
+| [Chai][]    | X        | X          | X          |                  |                    |            | X          | X          |         |                  |                        |                                                                           |           |
 | [Closure][] |          |            |            | X                |
 | [Deno][]    | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
 | [Jest][]    | X        | X          | X          |
 | [Mocha][]   | X        | X          |            |                  |                    |            | X          |            |         |                  |                        | [X](https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#error-codes) |           |
+| [Mozilla][] | X        | X          | X          |                  |                    |            |            |            |         |                  |                        |                                                                           |           | X          |
 | [Must.js][] | X        | X          | X          |                  |                    | X          | X          |            | X       |
 | [Node.js][] | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
 
-[chai.js]: https://github.com/chaijs/assertion-error/blob/HEAD/index.js#L44
+[chai]: https://github.com/chaijs/assertion-error/blob/HEAD/index.js#L44
 [closure]:
   https://github.com/google/closure-library/blob/HEAD/closure/goog/asserts/asserts.js#L54
 [deno]: https://deno.land/std@0.92.0/node/assertion_error.ts#L376
@@ -224,13 +227,15 @@ below.
 [must.js]: https://github.com/moll/js-must/blob/HEAD/lib/assertion_error.js#L5
 [node.js]:
   https://github.com/nodejs/node/blob/HEAD/lib/internal/assert/assertion_error.js#L327
+[mozilla]:
+  https://searchfox.org/mozilla-central/rev/0b90e582d2f592a30713bafc55bfeb0e39e1a1fa/testing/modules/Assert.jsm#105
 
 ### Descriptions of custom properties
 
 | Property             | Type     | Meaning                                                                                                               |
 | -------------------- | -------- | --------------------------------------------------------------------------------------------------------------------- |
 | `actual`             | unknown  | Set to the `actual` argument for methods such as `assert.strictEqual()`.                                              |
-| `callsite`           | function | Location where the assertion happened.                                                                                |
+| `callsite`           | Function | Location where the assertion happened.                                                                                |
 | `code`               | string   | Value is always `ERR_ASSERTION` to show that the error is an assertion error.                                         |
 | `details`            | Object   | The context data necessary in a single object.                                                                        |
 | `diffable`           | boolean  | Whether it makes sense to compare objects granularly or even show a diff view of the objects involved.                |
@@ -244,6 +249,7 @@ below.
 | `stackStartFn`       | Function | If provided, the generated stack trace omits frames before this function.                                             |
 | `stackStartFunction` | Function | Legacy name for `stackStartFn` in Node.js also in Deno.                                                               |
 | `toJSON()`           | Function | Allow errors to be converted to JSON for static transfer.                                                             |
+| `truncate`           | boolean  | Whether or not `actual` and `expected` should be truncated when printing                                              |
 
 <br />
 
@@ -271,7 +277,9 @@ Good amount of implementations in JS existence today.
 
 - [npm: `assertion-error`](https://www.npmjs.com/package/assertion-error)
 - [npm: `assertion-error-diff`](https://www.npmjs.com/package/assertion-error-diff)
-- [node: `assert.AssertError`](https://github.com/nodejs/node/blob/HEAD/doc/api/assert.md#class-assertassertionerror)
+- [node: `assert.AssertionError`](https://github.com/nodejs/node/blob/HEAD/doc/api/assert.md#class-assertassertionerror)
+- [npm: `better-assert`](https://github.com/tj/better-assert)
+- [npm: `callsite`](https://github.com/tj/callsite)
 
 ### Formatters
 
