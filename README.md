@@ -9,29 +9,36 @@ This proposal has not yet been introduced to TC39.
 
 Authors:
 
-- [@DerekNonGeneric](https://github.com/DerekNonGeneric) (Derek Lewis, Indiana University)
+- [@DerekNonGeneric](https://github.com/DerekNonGeneric) (Derek Lewis, Indiana
+  University)
 - Champion: TBD
 
 ## Motivation
 
-Today, a very common design pattern (especially in assertion library code)
-is to throw an `AssertionError` for any failed assertions.
+Today, a very common design pattern (especially in assertion library code) is to
+throw an `AssertionError` for any failed assertions.
 
 In particular, the following popular assertion libraries do this:
 
-- Chai.js
-- Mocha
+- [Chai](https://github.com/chaijs/chai)
 - Node.js core `assert` module
-- QUnit
 - [See Related](#related)
 
-Ideally, a standard AssertionError from any assertion library would be used by the error reporters of test frameworks and runtime error loggers to display the difference between what was expected and what the assertion saw for providing rich error reporting such a pretty printed diff.
+Ideally, a standard AssertionError from any assertion library would be used by
+the error reporters of test frameworks and runtime error loggers to display the
+difference between what was expected and what the assertion saw for providing
+rich error reporting such as displaying a pretty printed diff.
 
-However, due to the various assertion libraries using disparate AssertionError classes, with each providing varying degrees of contextual information, a standard API for assertion error message pretty printing does not yet exist.
+However, due to the various assertion libraries using disparate AssertionError
+classes, with each providing varying degrees of contextual information, a
+standard API for assertion error message pretty printing does not yet exist.
 
-This proposal introduces a 7th standard error type to the language to provide a consistent API necessary to enable assertion library-agnostic error handlers with the contextual information necessary for rich error reporting.
+This proposal introduces a 7th standard error type to the language to provide a
+consistent API necessary to enable assertion library-agnostic error handlers
+with the contextual information necessary for rich error reporting.
 
-There are several existing modules with similar ideas of how the interface for this error is expected to look:
+There are several existing modules with similar ideas of how the interface for
+this error is expected to look:
 
 - [npm: `assertion-error`](https://www.npmjs.com/package/assertion-error)
 - [npm: `assertion-error-diff`](https://www.npmjs.com/package/assertion-error-diff)
@@ -120,7 +127,7 @@ assert.fullHP = function (pokemon, message) {
 };
 ```
 
-AssertionError is not only for pretty printing error messages.
+The `AssertionError` class is not only for pretty printing error messages.
 
 ```mjs
 assert.heals = (pokemon, fn, message) => {
@@ -174,8 +181,9 @@ A subclass of `Error` that indicates the failure of an assertion.
 
 ### Test & validation frameworks
 
-> Mocha supports the `err.expected` and `err.actual` properties of any thrown AssertionErrors from an assertion library.
-> Mocha will attempt to display the difference between what was expected, and what the assertion actually saw.
+> Mocha supports the `err.expected` and `err.actual` properties of any thrown
+> AssertionErrors from an assertion library. Mocha will attempt to display the
+> difference between what was expected, and what the assertion actually saw.
 >
 > &mdash; https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#diffs
 
@@ -185,12 +193,14 @@ A subclass of `Error` that indicates the failure of an assertion.
 > object being `true`. You can use the `Log.prototype.expectedError` method to
 > create an error that is marked as expected.
 >
-> &mdash; https://github.com/ampproject/amphtml/blob/main/spec/amp-errors.md#expected-errors
+> &mdash; >
+> https://github.com/ampproject/amphtml/blob/main/spec/amp-errors.md#expected-errors
 
 ## Options
 
 All instances of `AssertionError` would contain the built-in `Error` properties
-(`message` and `name`) and perhaps any of the new properties in common use below.
+(`message` and `name`) and perhaps any of the new properties in common use
+below.
 
 ### Support for new properties
 
@@ -205,12 +215,14 @@ All instances of `AssertionError` would contain the built-in `Error` properties
 | [Node.js][] | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
 
 [chai.js]: https://github.com/chaijs/assertion-error/blob/HEAD/index.js#L44
-[closure]: https://github.com/google/closure-library/blob/HEAD/closure/goog/asserts/asserts.js#L54
+[closure]:
+  https://github.com/google/closure-library/blob/HEAD/closure/goog/asserts/asserts.js#L54
 [deno]: https://deno.land/std@0.92.0/node/assertion_error.ts#L376
 [jest]: https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#diffs
 [mocha]: https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#diffs
 [must.js]: https://github.com/moll/js-must/blob/HEAD/lib/assertion_error.js#L5
-[node.js]: https://github.com/nodejs/node/blob/HEAD/lib/internal/assert/assertion_error.js#L327
+[node.js]:
+  https://github.com/nodejs/node/blob/HEAD/lib/internal/assert/assertion_error.js#L327
 
 ### Descriptions of custom properties
 
@@ -228,9 +240,9 @@ All instances of `AssertionError` would contain the built-in `Error` properties
 | `operator`           | string   | Set to the passed in operator value.                                                                                  |
 | `showDiff`           | boolean  | Same as `diffable`. Used by mocha; whether to do string or object diffs based on actual/expected.                     |
 | `stack`              | unknown  | The stack trace at the point where this error was first thrown.                                                       |
-| `stackStartFn`       | function | If provided, the generated stack trace omits frames before this function.                                             |
-| `stackStartFunction` | function | Legacy name for `stackStartFn` in Node.js also in Deno.                                                               |
-| `toJSON()`           | function | Allow errors to be converted to JSON for static transfer.                                                             |
+| `stackStartFn`       | Function | If provided, the generated stack trace omits frames before this function.                                             |
+| `stackStartFunction` | Function | Legacy name for `stackStartFn` in Node.js also in Deno.                                                               |
+| `toJSON()`           | Function | Allow errors to be converted to JSON for static transfer.                                                             |
 
 <br />
 
@@ -242,7 +254,8 @@ All instances of `AssertionError` would contain the built-in `Error` properties
 - `AssertionError` has been one of Python's Standard Exception Classes since
   Python 1.5. https://www.python.org/doc/essays/stdexceptions/
 
-- `AssertionError` in Java also accepts a `cause` https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AssertionError.html
+- `AssertionError` in Java also accepts a `cause`
+  https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AssertionError.html
 
 ## Related
 
