@@ -25,12 +25,12 @@ In particular, the following popular assertion libraries do this:
 - [Node.js core `assert` module](https://nodejs.org/dist/latest/docs/api/assert.html#assert_assert)
 - [See Related](#related)
 
-Ideally, a standard AssertionError from any assertion library would be used by
+Ideally, a standard `AssertionError` from any assertion library would be used by
 the error reporters of test frameworks and runtime error loggers to display the
 difference between what was expected and what the assertion saw for providing
 rich error reporting such as displaying a pretty printed diff.
 
-However, due to the various assertion libraries using disparate AssertionError
+However, due to the various assertion libraries using disparate `AssertionError`
 classes, with each providing varying degrees of contextual information, a
 standard API for assertion error message pretty printing does not yet exist.
 
@@ -50,9 +50,9 @@ this error is expected to look:
 Today, it is very common for unit testing frameworks to have assertion methods
 like `assertNull` write code like:
 
-```ts
+```mjs
 // file: check.mjs
-function check(actual) {
+export function check(actual) {
   return {
     is: function (expect, message) {
       if (actual !== expect)
@@ -64,6 +64,7 @@ function check(actual) {
     },
   };
 }
+
 export default check;
 ```
 
@@ -99,7 +100,22 @@ try {
 ```
 -->
 
-Or if we had an `operator` property:
+The `AssertionError` class is not only for pretty printing error messages. It
+plays a key role in applying &ldquo;Design by Contract&rdquo;, which often means
+performing runtime assertions.
+
+> An assertion specifies that a program satisfies certain conditions at
+> particular points in its execution. There are three types of assertion:
+>
+> - Preconditions: Specify conditions at the start of a function.
+>
+> - Postconditions: Specify conditions at the end of a function.
+>
+> - Invariants: Specify conditions over a defined region of a program.
+>
+> &mdash;https://ptolemy.berkeley.edu/~johnr/tutorials/assertions.html
+
+The examples below demonstrate &ldquo;Postconditions&rdquo;.
 
 ```mjs
 assert.species = (pokemon, species, message) => {
@@ -108,7 +124,6 @@ assert.species = (pokemon, species, message) => {
   throw new AssertionError({
     actual,
     expected: species,
-    operator: '===',
     message:
       message || `Expected ${pokemon} species to be ${species}, not ${actual}.`,
     stackStartFunction: assert.species,
@@ -130,7 +145,8 @@ assert.fullHP = function (pokemon, message) {
 };
 ```
 
-The `AssertionError` class is not only for pretty printing error messages.
+The more contextual information, the richer the error reports. So, if we had an
+operator property&hellip;
 
 ```mjs
 assert.heals = (pokemon, fn, message) => {
@@ -146,6 +162,9 @@ assert.heals = (pokemon, fn, message) => {
   });
 };
 ```
+
+&hellip; it would enable us to construct highly descriptive reports that include
+comparison result data.
 
 [Attribution](https://github.com/Fercardo/Inferno/blob/HEAD/test/assert.js#L61)
 
@@ -180,7 +199,7 @@ A subclass of `Error` that indicates the failure of an assertion.
 > suite, all assert methods should throw an `AssertionError` that has properties
 > for `actual` and `expected` an common API for error message pretty printing.
 >
-> &mdash; http://wiki.commonjs.org/wiki/Unit_Testing/1.0#Custom_Assert_Modules
+> &mdash;http://wiki.commonjs.org/wiki/Unit_Testing/1.0#Custom_Assert_Modules
 
 ### Test & validation frameworks
 
@@ -188,7 +207,7 @@ A subclass of `Error` that indicates the failure of an assertion.
 > AssertionErrors from an assertion library. Mocha will attempt to display the
 > difference between what was expected, and what the assertion actually saw.
 >
-> &mdash; https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#diffs
+> &mdash;https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#diffs
 
 ### Runtime feature detection errors
 
@@ -196,8 +215,7 @@ A subclass of `Error` that indicates the failure of an assertion.
 > object being `true`. You can use the `Log.prototype.expectedError` method to
 > create an error that is marked as expected.
 >
-> &mdash; >
-> https://github.com/ampproject/amphtml/blob/main/spec/amp-errors.md#expected-errors
+> &mdash;https://github.com/ampproject/amphtml/blob/main/spec/amp-errors.md#expected-errors
 
 ## Options
 
@@ -207,16 +225,16 @@ below.
 
 ### Support for new properties
 
-|             | `actual` | `expected` | `operator` | `messagePattern` | `generatedMessage` | `diffable` | `showDiff` | `toJson()` | `stack` | `stackStartFn()` | `stackStartFunction()` | `code`                                                                    | `details` | `truncate` |
-| ----------- | -------- | ---------- | ---------- | ---------------- | ------------------ | ---------- | ---------- | ---------- | ------- | ---------------- | ---------------------- | ------------------------------------------------------------------------- | --------- | ---------- |
-| [Chai][]    | X        | X          | X          |                  |                    |            | X          | X          |         |                  |                        |                                                                           |           |
-| [Closure][] |          |            |            | X                |
-| [Deno][]    | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
-| [Jest][]    | X        | X          | X          |
-| [Mocha][]   | X        | X          |            |                  |                    |            | X          |            |         |                  |                        | [X](https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#error-codes) |           |
-| [Mozilla][] | X        | X          | X          |                  |                    |            |            |            |         |                  |                        |                                                                           |           | X          |
-| [Must.js][] | X        | X          | X          |                  |                    | X          | X          |            | X       |
-| [Node.js][] | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
+|                    | `actual` | `expected` | `operator` | `messagePattern` | `generatedMessage` | `diffable` | `showDiff` | `toJson()` | `stack` | `stackStartFn()` | `stackStartFunction()` | `code`                                                                    | `details` | `truncate` |
+| ------------------ | -------- | ---------- | ---------- | ---------------- | ------------------ | ---------- | ---------- | ---------- | ------- | ---------------- | ---------------------- | ------------------------------------------------------------------------- | --------- | ---------- |
+| [Chai][]           | X        | X          | X          |                  |                    |            | X          | X          |         |                  |                        |                                                                           |           |
+| [Closure][]        |          |            |            | X                |
+| [Deno][]           | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
+| [Jest][]           | X        | X          | X          |
+| [Mocha][]          | X        | X          |            |                  |                    |            | X          |            |         |                  |                        | [X](https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#error-codes) |           |
+| [Mozilla Assert][] | X        | X          | X          |                  |                    |            |            |            |         |                  |                        |                                                                           |           | X          |
+| [Must.js][]        | X        | X          | X          |                  |                    | X          | X          |            | X       |
+| [Node.js Core][]   | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
 
 [chai]: https://github.com/chaijs/assertion-error/blob/HEAD/index.js#L44
 [closure]:
@@ -225,9 +243,9 @@ below.
 [jest]: https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#diffs
 [mocha]: https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#diffs
 [must.js]: https://github.com/moll/js-must/blob/HEAD/lib/assertion_error.js#L5
-[node.js]:
+[node.js core]:
   https://github.com/nodejs/node/blob/HEAD/lib/internal/assert/assertion_error.js#L327
-[mozilla]:
+[mozilla assert]:
   https://searchfox.org/mozilla-central/rev/0b90e582d2f592a30713bafc55bfeb0e39e1a1fa/testing/modules/Assert.jsm#105
 
 ### Descriptions of custom properties
@@ -249,13 +267,13 @@ below.
 | `stackStartFn`       | Function | If provided, the generated stack trace omits frames before this function.                                             |
 | `stackStartFunction` | Function | Legacy name for `stackStartFn` in Node.js also in Deno.                                                               |
 | `toJSON()`           | Function | Allow errors to be converted to JSON for static transfer.                                                             |
-| `truncate`           | boolean  | Whether or not `actual` and `expected` should be truncated when printing                                              |
+| `truncate`           | boolean  | Whether or not `actual` and `expected` should be truncated when printing.                                             |
 
 <br />
 
 ## Implementations in other languages
 
-- `assert.AssertionError` has been one of Node's core modules since 2011
+- `assert.AssertionError` has been one of Node's core modules since 2009
   https://nodejs.org/dist/latest-v15.x/docs/api/assert.html#assert_class_assert_assertionerror
 
 - `AssertionError` has been one of Python's Standard Exception Classes since
