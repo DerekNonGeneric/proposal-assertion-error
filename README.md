@@ -235,6 +235,9 @@ below.
 | [Mozilla Assert][] | X        | X          | X          |                  |                    |            |            |            |         |                  |                        |                                                                           |           | X          |
 | [Must.js][]        | X        | X          | X          |                  |                    | X          | X          |            | X       |
 | [Node.js Core][]   | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
+| [WPT][]            |          |            |            |                  |                    |            |            |            | X       |
+
+Note: `Error.stack` is not supported in all browsers/versions.
 
 [chai]: https://github.com/chaijs/assertion-error/blob/HEAD/index.js#L44
 [closure]:
@@ -247,6 +250,8 @@ below.
   https://github.com/nodejs/node/blob/HEAD/lib/internal/assert/assertion_error.js#L327
 [mozilla assert]:
   https://searchfox.org/mozilla-central/rev/0b90e582d2f592a30713bafc55bfeb0e39e1a1fa/testing/modules/Assert.jsm#105
+[wpt]:
+  https://github.com/web-platform-tests/wpt/blob/7b0ebaccc62b566a1965396e5be7bb2bc06f841f/resources/testharness.js#L3770
 
 ### Descriptions of custom properties
 
