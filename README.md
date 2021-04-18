@@ -225,17 +225,19 @@ below.
 
 ### Support for new properties
 
-|                    | `actual` | `expected` | `operator` | `messagePattern` | `generatedMessage` | `diffable` | `showDiff` | `toJson()` | `stack` | `stackStartFn()` | `stackStartFunction()` | `code`                                                                    | `details` | `truncate` |
-| ------------------ | -------- | ---------- | ---------- | ---------------- | ------------------ | ---------- | ---------- | ---------- | ------- | ---------------- | ---------------------- | ------------------------------------------------------------------------- | --------- | ---------- |
-| [Chai][]           | X        | X          | X          |                  |                    |            | X          | X          |         |                  |                        |                                                                           |           |
-| [Closure][]        |          |            |            | X                |
-| [Deno][]           | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
-| [Jest][]           | X        | X          | X          |
-| [Mocha][]          | X        | X          |            |                  |                    |            | X          |            |         |                  |                        | [X](https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#error-codes) |           |
-| [Mozilla Assert][] | X        | X          | X          |                  |                    |            |            |            |         |                  |                        |                                                                           |           | X          |
-| [Must.js][]        | X        | X          | X          |                  |                    | X          | X          |            | X       |
-| [Node.js Core][]   | X        | X          | X          |                  | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
-| [WPT][]            |          |            |            |                  |                    |            |            |            | X       |
+|                    | `actual` | `expected` | `operator` | `messagePattern` | `generateMessage()`| `generatedMessage` | `diffable` | `showDiff` | `toJson()` | `stack` | `stackStartFn()` | `stackStartFunction()` | `code`                                                                    | `details` | `truncate` | `previous` | `negate` | `_message` |
+| ------------------ | -------- | ---------- | ---------- | ---------------- | ------------------ | ------------------ | ---------- | ---------- | ---------- | ------- | ---------------- | ---------------------- | ------------------------------------------------------------------------- | --------- | ---------- | ---------- | -------- | ---------- |
+| [Chai][]           | X        | X          | X          |                  |                    |                    |            | X          | X          |         |                  |                        |                                                                           |           |
+| [Closure][]        |          |            |            | X                |                    |
+| [Deno][]           | X        | X          | X          |                  |                    | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
+| [Jest][]           | X        | X          | X          |                  |                    |
+| [Mocha][]          | X        | X          |            |                  |                    |                    |            | X          |            |         |                  |                        | [X](https://github.com/mochajs/mocha/blob/HEAD/docs/index.md#error-codes) |           |
+| [Mozilla Assert][] | X        | X          | X          |                  |                    |                    |            |            |            |         |                  |                        |                                                                           |           | X          |
+| [Must.js][]        | X        | X          | X          |                  |                    |                    | X          | X          |            | X       |
+| [Node.js Core][]   | X        | X          | X          |                  |                    | X                  |            |            |            | X       | X                | X                      | X                                                                         | X         |
+| [Should.js][]      | X        | X          | X          |                  | X                  | X                  |            |            |            | X       | X                | X                      |                                                                           | X         |
+| [WPT][]            |          |            |            |                  |                    |                    |            |            |            | X       |                  |                        |                                                                           |           |            | X        | X           | X
+
 
 Note: `Error.stack` is not supported in all browsers/versions.
 
@@ -250,6 +252,7 @@ Note: `Error.stack` is not supported in all browsers/versions.
   https://github.com/nodejs/node/blob/HEAD/lib/internal/assert/assertion_error.js#L327
 [mozilla assert]:
   https://searchfox.org/mozilla-central/rev/0b90e582d2f592a30713bafc55bfeb0e39e1a1fa/testing/modules/Assert.jsm#105
+[should.js]: https://github.com/shouldjs/should.js/blob/master/lib/assertion-error.js
 [wpt]:
   https://github.com/web-platform-tests/wpt/blob/7b0ebaccc62b566a1965396e5be7bb2bc06f841f/resources/testharness.js#L3770
 
