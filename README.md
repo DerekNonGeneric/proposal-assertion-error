@@ -331,3 +331,7 @@ While there are lots of ways to achieve the behavior of the proposal, if the
 various AssertionError properties are explicitly defined by the language, debug
 tooling, error reporters, and other AssertionError consumers can reliably use
 this info rather than contracting with developers to construct an error properly.
+
+## Notes
+
+- [Implement ES stage-3 proposal: `error-cause`](https://github.com/nodejs/node/issues/38725)
