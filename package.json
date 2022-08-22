@@ -10,6 +10,6 @@
   "repository": "github:DerekNonGeneric/proposal-assertion-error",
   "license": "MIT",
   "devDependencies": {
-    "ecmarkup": "^7.0.3"
+    "ecmarkup": "7.1.0"
   }
 }
