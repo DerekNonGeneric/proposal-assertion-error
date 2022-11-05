@@ -7,11 +7,18 @@ assertion has occurred.
 
 This proposal has not yet been introduced to TC39.
 
-Authors:
+## Authors
 
-- [@DerekNonGeneric](https://github.com/DerekNonGeneric) (Derek Lewis, Indiana
-  University)
-- Champion: TBD
+- [@DerekNonGeneric](https://github.com/DerekNonGeneric) (Derek Lewis, AMPHTML / OpenINF)
+- Spec. Guest(s):
+  - [@boneskull](https://github.com/boneskull) (Chris Hiller, Mocha)
+    
+ ### Champion Group
+    
+  - Invited Expert(s):
+    - TBD
+  - Delegates(s):
+    - TBD
 
 ## Motivation
 
