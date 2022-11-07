@@ -222,7 +222,7 @@ A subclass of `Error` that indicates the failure of an assertion.
 > object being `true`. You can use the `Log.prototype.expectedError` method to
 > create an error that is marked as expected.
 >
-> &mdash;https://github.com/ampproject/amphtml/blob/main/spec/amp-errors.md#expected-errors
+> &mdash;https://github.com/ampproject/amphtml/blob/main/docs/spec/amp-errors.md#expected-errors
 
 ## Options
 
