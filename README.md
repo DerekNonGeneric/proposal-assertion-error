@@ -17,7 +17,7 @@ This proposal has not yet been introduced to TC39.
     
   - Invited Expert(s):
     - TBD
-  - Delegates(s):
+  - Delegate(s):
     - TBD
 
 ## Motivation
